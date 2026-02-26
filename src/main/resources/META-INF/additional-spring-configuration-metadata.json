@@ -1,0 +1,19 @@
+{
+  "properties": [
+    {
+      "name": "app.auth.username",
+      "type": "java.lang.String",
+      "description": "Username for in-memory authentication user."
+    },
+    {
+      "name": "app.auth.password",
+      "type": "java.lang.String",
+      "description": "Password for in-memory authentication user."
+    },
+    {
+      "name": "app.auth.role",
+      "type": "java.lang.String",
+      "description": "Role for in-memory authentication user (without ROLE_ prefix)."
+    }
+  ]
+}

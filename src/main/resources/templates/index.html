@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+    <title>Question Paper Generator</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>📋 Question Paper Generator</h1>
+            <p class="subtitle">University Question Paper Management System</p>
+            <form class="logout-form" th:action="@{/logout}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                <button type="submit" class="btn btn-secondary">Logout</button>
+            </form>
+        </header>
+
+        <nav class="navbar">
+            <ul class="nav-list">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#subjects" class="nav-link">Subjects</a></li>
+                <li><a href="#questions" class="nav-link">Questions</a></li>
+                <li><a href="#generate" class="nav-link">Generate Paper</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <!-- Home Section -->
+            <section id="home" class="section active">
+                <div class="welcome-box">
+                    <h2>Welcome to Question Paper Generator</h2>
+                    <p>A comprehensive system to manage subjects, store questions, and automatically generate question papers for exams.</p>
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">📚</div>
+                            <h3>Manage Subjects</h3>
+                            <p>Create and organize subjects for your university</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">❓</div>
+                            <h3>Store Questions</h3>
+                            <p>Add questions with different difficulty levels</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">📄</div>
+                            <h3>Generate Papers</h3>
+                            <p>Create question papers automatically</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Subjects Section -->
+            <section id="subjects" class="section">
+                <h2>Manage Subjects</h2>
+                <div class="form-container">
+                    <form id="subjectForm" class="form">
+                        <div class="form-group">
+                            <label for="subjectName">Subject Name:</label>
+                            <input type="text" id="subjectName" name="subjectName" placeholder="Enter subject name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subjectCode">Subject Code:</label>
+                            <input type="text" id="subjectCode" name="subjectCode" placeholder="Enter subject code" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="credits">Credits:</label>
+                            <input type="number" id="credits" name="credits" placeholder="Enter credits" min="1" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Subject</button>
+                    </form>
+                </div>
+
+                <div class="table-container">
+                    <h3>Existing Subjects</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Subject Name</th>
+                                <th>Subject Code</th>
+                                <th>Credits</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="subjectsTable">
+                            <tr>
+                                <td colspan="5" class="empty-message">No subjects added yet</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Questions Section -->
+            <section id="questions" class="section">
+                <h2>Manage Questions</h2>
+                <div class="form-container">
+                    <form id="questionForm" class="form">
+                        <div class="form-group">
+                            <label for="questionSubject">Select Subject:</label>
+                            <select id="questionSubject" name="questionSubject" required>
+                                <option value="">-- Choose a subject --</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="questionText">Question:</label>
+                            <textarea id="questionText" name="questionText" placeholder="Enter the question" rows="4" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="questionMarks">Marks:</label>
+                            <input type="number" id="questionMarks" name="questionMarks" placeholder="Enter marks" min="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="questionDifficulty">Difficulty Level:</label>
+                            <select id="questionDifficulty" name="questionDifficulty" required>
+                                <option value="">-- Select difficulty --</option>
+                                <option value="easy">Easy</option>
+                                <option value="medium">Medium</option>
+                                <option value="hard">Hard</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Question</button>
+                    </form>
+                </div>
+
+                <div class="table-container">
+                    <h3>Existing Questions</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Subject</th>
+                                <th>Question</th>
+                                <th>Marks</th>
+                                <th>Difficulty</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="questionsTable">
+                            <tr>
+                                <td colspan="6" class="empty-message">No questions added yet</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Generate Paper Section -->
+            <section id="generate" class="section">
+                <h2>Generate Question Paper</h2>
+                <div class="form-container">
+                    <form id="generateForm" class="form">
+                        <div class="form-group">
+                            <label for="paperSubject">Select Subject:</label>
+                            <select id="paperSubject" name="paperSubject" required>
+                                <option value="">-- Choose a subject --</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="totalMarks">Total Marks:</label>
+                            <input type="number" id="totalMarks" name="totalMarks" placeholder="Enter total marks" min="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="easyPercentage">Easy Questions (%):</label>
+                            <input type="number" id="easyPercentage" name="easyPercentage" placeholder="Enter percentage" min="0" max="100" value="20" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="mediumPercentage">Medium Questions (%):</label>
+                            <input type="number" id="mediumPercentage" name="mediumPercentage" placeholder="Enter percentage" min="0" max="100" value="50" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="hardPercentage">Hard Questions (%):</label>
+                            <input type="number" id="hardPercentage" name="hardPercentage" placeholder="Enter percentage" min="0" max="100" value="30" required>
+                        </div>
+                        <button type="submit" class="btn btn-success">Generate Paper</button>
+                    </form>
+                </div>
+
+                <div id="generatedPaper" class="paper-container" style="display: none;">
+                    <h3>Generated Question Paper</h3>
+                    <div id="paperContent" class="paper-content"></div>
+                    <button class="btn btn-secondary" onclick="window.print()">Print Paper</button>
+                    <button class="btn btn-secondary" onclick="downloadPaper()">Download PDF</button>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2026 University Question Paper Generator. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script th:src="@{/js/script.js}"></script>
+</body>
+</html>
