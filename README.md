@@ -99,15 +99,6 @@ Open:
 - `GET /api/papers/{subjectId}/pdf` - export PDF
 - `GET /api/papers/{subjectId}/docx` - export DOCX
 
-## Resume Links
-
-Use these in your resume:
-
-- Repository: `https://github.com/Sivamani7196/VIT-AP_ExamPaperGenerator`
-- Live Demo: add your deployed URL here, for example `https://vit-ap-exampapergenerator.onrender.com`
-
-> Note: A true live demo link requires deployment (Render/Railway/Azure). GitHub repo link is not considered a live running demo.
-
 ## Author
 
 Sivamani
